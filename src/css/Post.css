@@ -1,0 +1,397 @@
+/* src/css/Post.css */
+/* עיצוב רכיב פוסט יחיד */
+
+.post-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 20px;
+  direction: rtl;
+}
+
+.post-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+/* כותרת הפוסט */
+.post-header {
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  color: white;
+  padding: 25px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.breadcrumb-link {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.breadcrumb-link:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+}
+
+.breadcrumb-separator {
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: bold;
+}
+
+.breadcrumb-current {
+  color: white;
+  font-weight: bold;
+  opacity: 0.9;
+}
+
+.post-actions-header {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.post-actions-header .edit-btn,
+.post-actions-header .delete-btn {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  padding: 10px 20px;
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.post-actions-header .edit-btn:hover:not(:disabled) {
+  background: rgba(255, 193, 7, 0.8);
+  border-color: rgba(255, 193, 7, 0.8);
+  transform: translateY(-2px);
+}
+
+.post-actions-header .delete-btn:hover:not(:disabled) {
+  background: rgba(244, 67, 54, 0.8);
+  border-color: rgba(244, 67, 54, 0.8);
+  transform: translateY(-2px);
+}
+
+.post-actions-header button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+/* תוכן הפוסט */
+.post-content {
+  padding: 30px;
+}
+
+/* מצב צפייה */
+.post-display {
+  max-width: none;
+}
+
+.post-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 2px solid #f0f0f0;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.post-id {
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+
+.post-date {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.post-title {
+  color: #333;
+  font-size: 2.2rem;
+  font-weight: bold;
+  line-height: 1.3;
+  margin: 0 0 25px 0;
+  word-wrap: break-word;
+}
+
+.post-body {
+  background: #f8f9fa;
+  padding: 25px;
+  border-radius: 12px;
+  line-height: 1.7;
+  color: #333;
+  margin-bottom: 30px;
+  font-size: 1.1rem;
+}
+
+.post-body p {
+  margin: 0 0 15px 0;
+}
+
+.post-body p:last-child {
+  margin-bottom: 0;
+}
+
+.post-comments-toggle {
+  text-align: center;
+  padding: 20px 0;
+  border-top: 1px solid #e0e0e0;
+}
+
+.comments-toggle-btn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  border-radius: 30px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+
+.comments-toggle-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+}
+
+/* מצב עריכה */
+.edit-post-form {
+  background: #f8f9fa;
+  padding: 30px;
+  border-radius: 12px;
+  border: 2px solid #e3f2fd;
+}
+
+.edit-post-form h2 {
+  color: #1976d2;
+  margin: 0 0 25px 0;
+  font-size: 1.8rem;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: #333;
+  font-size: 1rem;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+  box-sizing: border-box;
+  font-family: inherit;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #4facfe;
+  box-shadow: 0 0 0 3px rgba(79, 172, 254, 0.1);
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 150px;
+  line-height: 1.6;
+}
+
+.form-actions {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
+.form-actions button {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.save-btn {
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  color: white;
+}
+
+.save-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(79, 172, 254, 0.3);
+}
+
+.cancel-btn {
+  background: #f5f5f5;
+  color: #666;
+  border: 2px solid #ddd !important;
+}
+
+.cancel-btn:hover:not(:disabled) {
+  background: #e0e0e0;
+  color: #333;
+}
+
+.form-actions button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+/* מסכי טעינה ושגיאות */
+.loading-container,
+.error-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  color: white;
+}
+
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid rgba(255, 255, 255, 0.3);
+  border-top: 4px solid white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 20px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.error-container h2 {
+  margin: 0 0 15px 0;
+  font-size: 1.8rem;
+}
+
+.error-container p {
+  margin: 0 0 20px 0;
+  font-size: 1.1rem;
+  opacity: 0.9;
+}
+
+.back-btn {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  padding: 12px 24px;
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.back-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+}
+
+/* הודעות שגיאה */
+.error-message {
+  background: #fee;
+  color: #c33;
+  padding: 15px 20px;
+  margin: 0 30px 20px;
+  border-radius: 8px;
+  border-right: 4px solid #c33;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.close-error {
+  background: none;
+  border: none;
+  color: #c33;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+}
+
+/* תגובה למסכים קטנים */
+@media (max-width: 768px) {
+  .post-page {
+    padding: 10px;
+  }
+  
+  .post-header {
+    padding: 20px;
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .post-actions-header {
+    justify-content: center;
+  }
+  
+  .post-content {
+    padding: 20px;
+  }
+  
+  .post-title {
+    font-size: 1.8rem;
+  }
+  
+  .form-actions {
+    flex-direction: column;
+  }
+  
+  .breadcrumb {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}

@@ -1,5 +1,5 @@
 // src/App.jsx
-// הקובץ הראשי של האפליקציה - מעודכן עם רכיב Todos
+// הקובץ הראשי של האפליקציה - מעודכן עם רכיב Posts
 
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
@@ -12,7 +12,9 @@ import Register from './components/Register';
 import CompleteProfile from './components/CompleteProfile';
 import Home from './components/Home';
 import Info from './components/Info';
-import Todos from './components/Todos';  // רכיב חדש
+import Todos from './components/Todos';
+import Posts from './components/Posts';  // רכיב רשימת פוסטים
+import Post from './components/Post';    // רכיב פוסט יחיד
 import PrivateRoute from './components/PrivateRoute';
 
 // ייבוא עיצוב כללי
@@ -67,19 +69,27 @@ function App() {
                 } 
               />
               
-              {/* דפים עתידיים - כרגע מפנים לבית */}
+              {/* רכיב הפוסטים - רשימה */}
               <Route 
                 path="/users/:userId/posts" 
                 element={
                   <PrivateRoute>
-                    <div className="coming-soon">
-                      <h2>📝 דף הפוסטים</h2>
-                      <p>בקרוב...</p>
-                    </div>
+                    <Posts />
                   </PrivateRoute>
                 } 
               />
               
+              {/* רכיב פוסט יחיד */}
+              <Route 
+                path="/users/:userId/posts/:postId" 
+                element={
+                  <PrivateRoute>
+                    <Post />
+                  </PrivateRoute>
+                } 
+              />
+              
+              {/* דפים עתידיים - כרגע מפנים לבית */}
               <Route 
                 path="/users/:userId/albums" 
                 element={

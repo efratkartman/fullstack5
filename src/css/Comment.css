@@ -1,0 +1,268 @@
+/* src/css/Comment.css */
+/* עיצוב תגובה בודדת */
+
+.comment-item {
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  margin-bottom: 15px;
+  padding: 20px;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.comment-item:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-color: #4facfe;
+}
+
+.comment-item.owner-comment {
+  border-right: 4px solid #28a745;
+  background: linear-gradient(135deg, #f8fff9 0%, #f0fff4 100%);
+}
+
+.comment-item.owner-comment:hover {
+  border-color: #28a745;
+  box-shadow: 0 2px 8px rgba(40, 167, 69, 0.2);
+}
+
+/* כותרת תגובה */
+.comment-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.comment-author {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.author-name {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.author-email {
+  font-size: 0.85rem;
+  color: #666;
+}
+
+.owner-badge {
+  background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+  color: white;
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-size: 0.7rem;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+}
+
+.comment-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.comment-id {
+  background: #f0f0f0;
+  color: #666;
+  padding: 3px 8px;
+  border-radius: 10px;
+  font-size: 0.75rem;
+  font-weight: bold;
+}
+
+/* תוכן התגובה */
+.comment-body {
+  background: #f8f9fa;
+  padding: 15px;
+  border-radius: 8px;
+  line-height: 1.6;
+  color: #333;
+  margin-bottom: 15px;
+  word-wrap: break-word;
+}
+
+/* פעולות על התגובה */
+.comment-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-start;
+}
+
+.comment-actions button {
+  background: none;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.comment-actions .edit-btn {
+  color: #ffc107;
+  background: rgba(255, 193, 7, 0.1);
+}
+
+.comment-actions .edit-btn:hover {
+  background: rgba(255, 193, 7, 0.2);
+  transform: translateY(-1px);
+}
+
+.comment-actions .delete-btn {
+  color: #dc3545;
+  background: rgba(220, 53, 69, 0.1);
+}
+
+.comment-actions .delete-btn:hover {
+  background: rgba(220, 53, 69, 0.2);
+  transform: translateY(-1px);
+}
+
+/* מצב עריכה */
+.comment-edit-form {
+  background: #f8f9fa;
+  padding: 20px;
+  border-radius: 8px;
+  border: 2px solid #e3f2fd;
+}
+
+.comment-header-edit h5 {
+  margin: 0 0 15px 0;
+  color: #1976d2;
+  font-size: 1.1rem;
+}
+
+.comment-edit-form .form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.comment-edit-form .form-group {
+  margin-bottom: 12px;
+}
+
+.comment-edit-form .form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #333;
+  font-size: 0.85rem;
+}
+
+.comment-edit-form .form-group input,
+.comment-edit-form .form-group textarea {
+  width: 100%;
+  padding: 8px 12px;
+  border: 2px solid #ddd;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  transition: border-color 0.3s ease;
+  box-sizing: border-box;
+  font-family: inherit;
+}
+
+.comment-edit-form .form-group input:focus,
+.comment-edit-form .form-group textarea:focus {
+  outline: none;
+  border-color: #4facfe;
+  box-shadow: 0 0 0 2px rgba(79, 172, 254, 0.1);
+}
+
+.comment-edit-form .form-group textarea {
+  resize: vertical;
+  min-height: 60px;
+  line-height: 1.4;
+}
+
+.comment-edit-form .comment-actions {
+  margin-top: 15px;
+  gap: 12px;
+}
+
+.comment-edit-form .save-btn {
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.comment-edit-form .save-btn:hover:not(:disabled) {
+  background: linear-gradient(135deg, #2196f3 0%, #00bcd4 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 3px 10px rgba(79, 172, 254, 0.3);
+}
+
+.comment-edit-form .cancel-btn {
+  background: #f5f5f5;
+  color: #666;
+  border: 2px solid #ddd !important;
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.comment-edit-form .cancel-btn:hover {
+  background: #e0e0e0;
+  color: #333;
+}
+
+.comment-edit-form .comment-actions button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+/* תגובה למסכים קטנים */
+@media (max-width: 768px) {
+  .comment-item {
+    padding: 15px;
+  }
+  
+  .comment-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  
+  .comment-author {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+  }
+  
+  .comment-edit-form .form-row {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  
+  .comment-actions {
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .comment-actions button {
+    padding: 8px 12px;
+    font-size: 0.9rem;
+  }
+}
