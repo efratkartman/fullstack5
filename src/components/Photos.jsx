@@ -1,5 +1,5 @@
 // src/components/Photos.jsx
-// רכיב ניהול תמונות עם Smart Caching + Lazy Loading
+// רכיב ניהול תמונות עם Smart Caching + Lazy Loading - גרסה מתוקנת
 
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
@@ -22,7 +22,7 @@ const Photos = ({ albumId, userId, albumTitle, onError }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [photosPerPage] = useState(9); // 3x3 = 9 תמונות בכל פעם
   const [hasMore, setHasMore] = useState(true);
-  const [totalPhotosFromServer, setTotalPhotosFromServer] = useState(null);
+  const [lastServerCallReachedEnd, setLastServerCallReachedEnd] = useState(false);
   
   // State להוספת תמונה
   const [showAddForm, setShowAddForm] = useState(false);
@@ -53,13 +53,16 @@ const Photos = ({ albumId, userId, albumTitle, onError }) => {
         const firstPagePhotos = parsedPhotos.slice(0, photosPerPage);
         setPhotos(firstPagePhotos);
         
-        // עדכן hasMore לפי מה שיש ב-cache
-        if (cachedMeta) {
+        // עדכן hasMore - אם יש עוד ב-cache להציג, בטוח יש עוד
+        // אם אין עוד ב-cache, אבל לא ידענו בוודאות שהגענו לסוף - ננסה
+        if (firstPagePhotos.length < parsedPhotos.length) {
+          setHasMore(true); // יש עוד ב-cache
+        } else if (cachedMeta) {
           const meta = JSON.parse(cachedMeta);
-          setTotalPhotosFromServer(meta.totalFromServer || null);
-          setHasMore(firstPagePhotos.length < parsedPhotos.length || (meta.totalFromServer && parsedPhotos.length < meta.totalFromServer));
+          setHasMore(!meta.reachedEnd); // hasMore לפי האם הגענו לסוף בקריאה האחרונה
+          setLastServerCallReachedEnd(meta.reachedEnd || false);
         } else {
-          setHasMore(firstPagePhotos.length < parsedPhotos.length);
+          setHasMore(true); // אין מטא-דאטה - ננסה לפנות לשרת
         }
         
         console.log(`Photos loaded from cache: showing ${firstPagePhotos.length} out of ${parsedPhotos.length} cached photos`);
@@ -74,18 +77,18 @@ const Photos = ({ albumId, userId, albumTitle, onError }) => {
   /**
    * שמירת תמונות ב-cache
    */
-  const saveToCache = (photosToSave, totalFromServer = null) => {
+  const saveToCache = (photosToSave, reachedEnd = false) => {
     try {
       localStorage.setItem(PHOTOS_STORAGE_KEY, JSON.stringify(photosToSave));
       
       const meta = {
         totalCached: photosToSave.length,
-        totalFromServer: totalFromServer,
+        reachedEnd: reachedEnd,
         lastUpdated: Date.now()
       };
       localStorage.setItem(PHOTOS_META_KEY, JSON.stringify(meta));
       
-      console.log(`Saved ${photosToSave.length} photos to cache`);
+      console.log(`Saved ${photosToSave.length} photos to cache, reachedEnd: ${reachedEnd}`);
     } catch (err) {
       console.error('Error saving to cache:', err);
     }
@@ -107,34 +110,24 @@ const Photos = ({ albumId, userId, albumTitle, onError }) => {
       const newPhotos = response.data;
       console.log(`Loaded ${newPhotos.length} photos from server (page ${page})`);
       
-      if (newPhotos.length === 0) {
-        setHasMore(false);
-        return [];
-      }
-
-      // אם זה העמוד הראשון וצריך לבדוק כמה תמונות יש בסך הכל
-      if (page === 1 && totalPhotosFromServer === null) {
-        try {
-          const countResponse = await axios.get(`http://localhost:3000/photos?albumId=${albumId}`);
-          setTotalPhotosFromServer(countResponse.data.length);
-        } catch (err) {
-          console.error('Error getting total count:', err);
-        }
-      }
-
       // הסרת duplicates - תמונות שכבר קיימות ב-cache
-      const existingIds = new Set(cachedPhotos.map(photo => photo.id));
-      const uniqueNewPhotos = newPhotos.filter(photo => !existingIds.has(photo.id));
+      // נוודא שמשווים IDs באותו type (string vs number)
+      const existingIds = new Set(cachedPhotos.map(photo => String(photo.id)));
+      const uniqueNewPhotos = newPhotos.filter(photo => !existingIds.has(String(photo.id)));
       
       console.log(`Found ${uniqueNewPhotos.length} unique photos out of ${newPhotos.length} from server`);
+
+      // בדיקה אם הגענו לסוף הנתונים (השרת החזיר פחות תמונות מה-limit)
+      const reachedEnd = newPhotos.length < photosPerPage;
+      setLastServerCallReachedEnd(reachedEnd);
 
       // עדכון ה-cache עם התמונות החדשות (רק הייחודיות)
       const updatedCache = isLoadMore ? [...cachedPhotos, ...uniqueNewPhotos] : uniqueNewPhotos;
       setCachedPhotos(updatedCache);
-      saveToCache(updatedCache, totalPhotosFromServer);
+      saveToCache(updatedCache, reachedEnd);
 
-      // בדיקה אם יש עוד תמונות (לפי התמונות המקוריות מהשרת)
-      setHasMore(newPhotos.length === photosPerPage);
+      // עדכון hasMore - יש עוד רק אם לא הגענו לסוף
+      setHasMore(!reachedEnd);
 
       return uniqueNewPhotos;
 
@@ -160,7 +153,7 @@ const Photos = ({ albumId, userId, albumTitle, onError }) => {
 
     // אם אין ב-cache, טען מהשרת
     const serverPhotos = await loadPhotosFromServer(1, false);
-    if (serverPhotos.length > 0) {
+    if (serverPhotos.length >= 0) { // גם 0 תמונות זה תקין
       setPhotos(serverPhotos);
     }
   };
@@ -183,13 +176,15 @@ const Photos = ({ albumId, userId, albumTitle, onError }) => {
         setPhotos(prev => [...prev, ...nextPhotos]);
         setCurrentPage(prev => prev + 1);
         
-        // בדוק אם יש עוד תמונות (ב-cache או בשרת)
-        const stillHasMore = cachedPhotos.length > photosNeeded || 
-          (totalPhotosFromServer && cachedPhotos.length < totalPhotosFromServer);
-        setHasMore(stillHasMore);
+        // עדכון hasMore - יש עוד אם:
+        // 1. יש עוד תמונות ב-cache להציג
+        // 2. או שלא הגענו לסוף בקריאה האחרונה לשרת
+        const moreInCache = cachedPhotos.length > photosNeeded;
+        const moreInServer = !lastServerCallReachedEnd;
+        setHasMore(moreInCache || moreInServer);
         
         setLoadingMore(false);
-        console.log(`Showed ${nextPhotos.length} more photos from cache`);
+        console.log(`Showed ${nextPhotos.length} more photos from cache. HasMore: ${moreInCache || moreInServer}`);
       }, 300);
       
     } else {
@@ -210,17 +205,17 @@ const Photos = ({ albumId, userId, albumTitle, onError }) => {
           setCurrentPage(prev => prev + 1);
           console.log(`Showed ${availableFromCache.length} photos from cache after server returned duplicates`);
           
-          // עדכן hasMore
-          const stillHasMore = photos.length + availableFromCache.length < cachedPhotos.length ||
-            (totalPhotosFromServer && cachedPhotos.length < totalPhotosFromServer);
-          setHasMore(stillHasMore);
+          // עדכן hasMore לפי מה שנשאר
+          const moreInCache = photos.length + availableFromCache.length < cachedPhotos.length;
+          const moreInServer = !lastServerCallReachedEnd;
+          setHasMore(moreInCache || moreInServer);
         } else {
-          // באמת אין יותר תמונות
+          // באמת אין יותר תמונות - הגענו לסוף
           setHasMore(false);
         }
       }
     }
-  }, [cachedPhotos, photos.length, currentPage, photosPerPage, loadingMore, hasMore, totalPhotosFromServer]);
+  }, [cachedPhotos, photos.length, currentPage, photosPerPage, loadingMore, hasMore, lastServerCallReachedEnd]);
 
   /**
    * הוספת תמונה חדשה
@@ -241,19 +236,17 @@ const Photos = ({ albumId, userId, albumTitle, onError }) => {
       const response = await axios.post('http://localhost:3000/photos', photoData);
       const addedPhoto = response.data;
 
-      // אפשרות 1: הוספה לתחילה + עדכון לוגיקה
+      // הוספה לתחילה כדי שהמשתמש יראה את התמונה מיד
       const updatedPhotos = [addedPhoto, ...photos];
       const updatedCache = [addedPhoto, ...cachedPhotos];
       
       setPhotos(updatedPhotos);
       setCachedPhotos(updatedCache);
       
-      // עדכון הcache ב-LocalStorage
-      saveToCache(updatedCache, totalPhotosFromServer ? totalPhotosFromServer + 1 : null);
-      
-      if (totalPhotosFromServer !== null) {
-        setTotalPhotosFromServer(prev => prev + 1);
-      }
+      // כשמוסיפים תמונה - המצב השתנה, אולי יש עוד עכשיו
+      setLastServerCallReachedEnd(false);
+      setHasMore(true);
+      saveToCache(updatedCache, false);
 
       setNewPhoto({ title: '', url: '', thumbnailUrl: '' });
       setShowAddForm(false);
@@ -277,16 +270,20 @@ const Photos = ({ albumId, userId, albumTitle, onError }) => {
       await axios.delete(`http://localhost:3000/photos/${photoId}`);
 
       // עדכון ה-state והcache
-      const updatedPhotos = photos.filter(photo => photo.id !== photoId);
-      const updatedCache = cachedPhotos.filter(photo => photo.id !== photoId);
+      const updatedPhotos = photos.filter(photo => String(photo.id) !== String(photoId));
+      const updatedCache = cachedPhotos.filter(photo => String(photo.id) !== String(photoId));
       
       setPhotos(updatedPhotos);
       setCachedPhotos(updatedCache);
-      saveToCache(updatedCache, totalPhotosFromServer ? totalPhotosFromServer - 1 : null);
       
-      if (totalPhotosFromServer !== null) {
-        setTotalPhotosFromServer(prev => prev - 1);
-      }
+      // אחרי מחיקה - עדכון hasMore לפי המצב החדש
+      const currentlyDisplayed = updatedPhotos.length;
+      const totalInCache = updatedCache.length;
+      const moreInCache = currentlyDisplayed < totalInCache;
+      const moreInServer = !lastServerCallReachedEnd;
+      setHasMore(moreInCache || moreInServer);
+      
+      saveToCache(updatedCache, lastServerCallReachedEnd);
 
       console.log('Photo deleted successfully');
 
@@ -301,7 +298,7 @@ const Photos = ({ albumId, userId, albumTitle, onError }) => {
    */
   const handleUpdatePhoto = async (photoId, newTitle) => {
     try {
-      const photo = cachedPhotos.find(p => p.id === photoId);
+      const photo = cachedPhotos.find(p => String(p.id) === String(photoId));
       const updatedPhotoData = { ...photo, title: newTitle.trim() };
 
       const response = await axios.put(`http://localhost:3000/photos/${photoId}`, updatedPhotoData);
@@ -309,15 +306,17 @@ const Photos = ({ albumId, userId, albumTitle, onError }) => {
 
       // עדכון ה-state והcache
       const updatedPhotos = photos.map(p => 
-        p.id === photoId ? updatedPhoto : p
+        String(p.id) === String(photoId) ? updatedPhoto : p
       );
       const updatedCache = cachedPhotos.map(p => 
-        p.id === photoId ? updatedPhoto : p
+        String(p.id) === String(photoId) ? updatedPhoto : p
       );
       
       setPhotos(updatedPhotos);
       setCachedPhotos(updatedCache);
-      saveToCache(updatedCache, totalPhotosFromServer);
+      
+      // עדכון תמונה לא משנה את הכמות - hasMore נשאר כמו שהוא
+      saveToCache(updatedCache, lastServerCallReachedEnd);
 
       console.log('Photo title updated successfully');
 
@@ -350,7 +349,7 @@ const Photos = ({ albumId, userId, albumTitle, onError }) => {
       setPhotos([]);
       setCachedPhotos([]);
       setHasMore(true);
-      setTotalPhotosFromServer(null);
+      setLastServerCallReachedEnd(false);
       loadInitialPhotos();
     }
   }, [albumId]);
@@ -367,13 +366,11 @@ const Photos = ({ albumId, userId, albumTitle, onError }) => {
     );
   }
 
-  const totalPhotosCount = totalPhotosFromServer || cachedPhotos.length;
-
   return (
     <div className="photos-section">
       {/* כותרת תמונות */}
       <div className="photos-header">
-        <h3>🖼️ תמונות האלבום ({totalPhotosCount})</h3>
+        <h3>🖼️ תמונות האלבום {cachedPhotos.length > 0 ? `(${cachedPhotos.length})` : ""}</h3>
         <button 
           onClick={() => setShowAddForm(!showAddForm)}
           className="add-photo-btn"
@@ -488,7 +485,7 @@ const Photos = ({ albumId, userId, albumTitle, onError }) => {
                   )}
                 </button>
                 <p className="photos-info">
-                  מוצגות {photos.length} מתוך {totalPhotosCount} תמונות
+                  מוצגות {photos.length} תמונות
                   {cachedPhotos.length > photos.length && (
                     <small> (עוד {cachedPhotos.length - photos.length} שמורות ב-cache)</small>
                   )}
