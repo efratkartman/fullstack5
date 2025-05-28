@@ -1,30 +1,27 @@
-/* src/css/Post.css */
-/* עיצוב רכיב פוסט יחיד */
+/* src/css/Post.css - עיצוב רכיב פוסט יחיד עקבי */
 
 .post-page {
-  min-height: 100vh;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: calc(100vh - 70px);
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
   padding: 20px;
-  direction: rtl;
 }
 
 .post-container {
   max-width: 1000px;
   margin: 0 auto;
-  background: white;
-  border-radius: 20px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
+  animation: fadeIn 0.6s ease-out;
 }
 
 /* כותרת הפוסט */
 .post-header {
-  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-  color: white;
-  padding: 25px 30px;
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
+  background: white;
+  padding: 25px 30px;
+  border-radius: 15px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  margin-bottom: 25px;
   flex-wrap: wrap;
   gap: 20px;
 }
@@ -37,79 +34,93 @@
 }
 
 .breadcrumb-link {
-  background: rgba(255, 255, 255, 0.2);
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
   border: none;
   padding: 8px 16px;
   border-radius: 20px;
   cursor: pointer;
-  font-size: 0.9rem;
+  font-size: 14px;
+  font-weight: 600;
   transition: all 0.3s ease;
-  backdrop-filter: blur(10px);
+  text-decoration: none;
 }
 
 .breadcrumb-link:hover {
-  background: rgba(255, 255, 255, 0.3);
   transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
 }
 
 .breadcrumb-separator {
-  color: rgba(255, 255, 255, 0.7);
+  color: #666;
   font-weight: bold;
+  font-size: 16px;
 }
 
 .breadcrumb-current {
-  color: white;
-  font-weight: bold;
-  opacity: 0.9;
+  color: #333;
+  font-weight: 600;
 }
 
 .post-actions-header {
   display: flex;
-  gap: 15px;
+  gap: 10px;
   flex-wrap: wrap;
 }
 
-.post-actions-header .edit-btn,
-.post-actions-header .delete-btn {
-  background: rgba(255, 255, 255, 0.2);
+.post-actions-header .edit-btn {
+  background: linear-gradient(135deg, #ff9800 0%, #f57c00 100%);
   color: white;
-  border: 2px solid rgba(255, 255, 255, 0.3);
+  border: none;
   padding: 10px 20px;
   border-radius: 25px;
   cursor: pointer;
-  font-size: 0.9rem;
-  font-weight: bold;
+  font-size: 14px;
+  font-weight: 600;
   transition: all 0.3s ease;
-  backdrop-filter: blur(10px);
 }
 
 .post-actions-header .edit-btn:hover:not(:disabled) {
-  background: rgba(255, 193, 7, 0.8);
-  border-color: rgba(255, 193, 7, 0.8);
   transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(255, 152, 0, 0.3);
+}
+
+.post-actions-header .delete-btn {
+  background: linear-gradient(135deg, #f44336 0%, #d32f2f 100%);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.3s ease;
 }
 
 .post-actions-header .delete-btn:hover:not(:disabled) {
-  background: rgba(244, 67, 54, 0.8);
-  border-color: rgba(244, 67, 54, 0.8);
   transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(244, 67, 54, 0.3);
 }
 
 .post-actions-header button:disabled {
   opacity: 0.6;
   cursor: not-allowed;
   transform: none !important;
+  box-shadow: none !important;
 }
 
 /* תוכן הפוסט */
 .post-content {
-  padding: 30px;
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  margin-bottom: 25px;
 }
 
 /* מצב צפייה */
 .post-display {
-  max-width: none;
+  padding: 30px;
 }
 
 .post-meta {
@@ -124,26 +135,30 @@
 }
 
 .post-id {
-  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
   padding: 8px 16px;
   border-radius: 20px;
-  font-size: 0.9rem;
-  font-weight: bold;
+  font-size: 14px;
+  font-weight: 600;
 }
 
 .post-date {
   color: #666;
-  font-size: 0.9rem;
+  font-size: 14px;
 }
 
 .post-title {
   color: #333;
-  font-size: 2.2rem;
-  font-weight: bold;
+  font-size: 32px;
+  font-weight: 700;
   line-height: 1.3;
   margin: 0 0 25px 0;
   word-wrap: break-word;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .post-body {
@@ -153,7 +168,7 @@
   line-height: 1.7;
   color: #333;
   margin-bottom: 30px;
-  font-size: 1.1rem;
+  font-size: 16px;
 }
 
 .post-body p {
@@ -176,8 +191,8 @@
   border: none;
   padding: 15px 30px;
   border-radius: 30px;
-  font-size: 1.1rem;
-  font-weight: bold;
+  font-size: 16px;
+  font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
   box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
@@ -190,16 +205,18 @@
 
 /* מצב עריכה */
 .edit-post-form {
-  background: #f8f9fa;
-  padding: 30px;
-  border-radius: 12px;
-  border: 2px solid #e3f2fd;
+  background: white;
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  border-left: 5px solid #ff9800;
 }
 
 .edit-post-form h2 {
-  color: #1976d2;
+  color: #333;
   margin: 0 0 25px 0;
-  font-size: 1.8rem;
+  font-size: 24px;
+  font-weight: 600;
 }
 
 .form-group {
@@ -209,18 +226,18 @@
 .form-group label {
   display: block;
   margin-bottom: 8px;
-  font-weight: bold;
-  color: #333;
-  font-size: 1rem;
+  font-weight: 600;
+  color: #555;
+  font-size: 14px;
 }
 
 .form-group input,
 .form-group textarea {
   width: 100%;
   padding: 12px 16px;
-  border: 2px solid #ddd;
+  border: 2px solid #e1e5e9;
   border-radius: 8px;
-  font-size: 1rem;
+  font-size: 16px;
   transition: border-color 0.3s ease;
   box-sizing: border-box;
   font-family: inherit;
@@ -228,9 +245,9 @@
 
 .form-group input:focus,
 .form-group textarea:focus {
+  border-color: #ff9800;
   outline: none;
-  border-color: #4facfe;
-  box-shadow: 0 0 0 3px rgba(79, 172, 254, 0.1);
+  box-shadow: 0 0 0 3px rgba(255, 152, 0, 0.1);
 }
 
 .form-group textarea {
@@ -241,7 +258,7 @@
 
 .form-actions {
   display: flex;
-  gap: 15px;
+  gap: 10px;
   flex-wrap: wrap;
   justify-content: flex-start;
 }
@@ -250,31 +267,30 @@
   padding: 12px 24px;
   border: none;
   border-radius: 8px;
-  font-size: 1rem;
-  font-weight: bold;
+  font-size: 14px;
+  font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
 }
 
 .save-btn {
-  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  background: linear-gradient(135deg, #ff9800 0%, #f57c00 100%);
   color: white;
 }
 
 .save-btn:hover:not(:disabled) {
   transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(79, 172, 254, 0.3);
+  box-shadow: 0 5px 15px rgba(255, 152, 0, 0.3);
 }
 
 .cancel-btn {
-  background: #f5f5f5;
-  color: #666;
-  border: 2px solid #ddd !important;
+  background: #f44336 !important;
+  color: white !important;
 }
 
 .cancel-btn:hover:not(:disabled) {
-  background: #e0e0e0;
-  color: #333;
+  background: #d32f2f !important;
+  transform: translateY(-1px);
 }
 
 .form-actions button:disabled {
@@ -285,24 +301,111 @@
 }
 
 /* מסכי טעינה ושגיאות */
-.loading-container,
-.error-container {
+.loading-container, .error-container {
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  padding: 60px 20px;
-  color: white;
+  align-items: center;
+  height: 50vh;
+  color: #666;
+  text-align: center;
 }
 
 .loading-spinner {
   width: 40px;
   height: 40px;
-  border: 4px solid rgba(255, 255, 255, 0.3);
-  border-top: 4px solid white;
+  border: 4px solid #e1e5e9;
+  border-top: 4px solid #667eea;
   border-radius: 50%;
   animation: spin 1s linear infinite;
   margin-bottom: 20px;
+}
+
+.error-container h2 {
+  margin: 0 0 15px 0;
+  font-size: 24px;
+  color: #f44336;
+}
+
+.error-container p {
+  margin: 0 0 20px 0;
+  font-size: 16px;
+}
+
+.back-btn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.back-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+}
+
+/* הודעות שגיאה */
+.error-message {
+  background-color: #ffebee;
+  color: #c62828;
+  padding: 15px 20px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  border-left: 4px solid #f44336;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  animation: slideIn 0.3s ease-out;
+}
+
+.close-error {
+  background: none;
+  border: none;
+  color: #c62828;
+  font-size: 18px;
+  cursor: pointer;
+  padding: 0;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background-color 0.3s ease;
+}
+
+.close-error:hover {
+  background-color: rgba(198, 40, 40, 0.1);
+}
+
+/* אנימציות */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 @keyframes spin {
@@ -310,80 +413,29 @@
   100% { transform: rotate(360deg); }
 }
 
-.error-container h2 {
-  margin: 0 0 15px 0;
-  font-size: 1.8rem;
-}
-
-.error-container p {
-  margin: 0 0 20px 0;
-  font-size: 1.1rem;
-  opacity: 0.9;
-}
-
-.back-btn {
-  background: rgba(255, 255, 255, 0.2);
-  color: white;
-  border: 2px solid rgba(255, 255, 255, 0.3);
-  padding: 12px 24px;
-  border-radius: 25px;
-  cursor: pointer;
-  font-size: 1rem;
-  font-weight: bold;
-  transition: all 0.3s ease;
-  backdrop-filter: blur(10px);
-}
-
-.back-btn:hover {
-  background: rgba(255, 255, 255, 0.3);
-  transform: translateY(-2px);
-}
-
-/* הודעות שגיאה */
-.error-message {
-  background: #fee;
-  color: #c33;
-  padding: 15px 20px;
-  margin: 0 30px 20px;
-  border-radius: 8px;
-  border-right: 4px solid #c33;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.close-error {
-  background: none;
-  border: none;
-  color: #c33;
-  font-size: 1.2rem;
-  cursor: pointer;
-  padding: 0;
-  margin: 0;
-}
-
-/* תגובה למסכים קטנים */
+/* רספונסיביות */
 @media (max-width: 768px) {
   .post-page {
     padding: 10px;
   }
   
   .post-header {
-    padding: 20px;
     flex-direction: column;
     align-items: stretch;
+    padding: 20px;
+    gap: 15px;
   }
   
   .post-actions-header {
     justify-content: center;
   }
   
-  .post-content {
+  .post-display {
     padding: 20px;
   }
   
   .post-title {
-    font-size: 1.8rem;
+    font-size: 26px;
   }
   
   .form-actions {
@@ -393,5 +445,28 @@
   .breadcrumb {
     flex-wrap: wrap;
     justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .post-header {
+    padding: 15px;
+  }
+  
+  .post-title {
+    font-size: 22px;
+  }
+  
+  .post-display {
+    padding: 15px;
+  }
+  
+  .form-actions button {
+    width: 100%;
+  }
+  
+  .breadcrumb-link {
+    font-size: 13px;
+    padding: 6px 12px;
   }
 }

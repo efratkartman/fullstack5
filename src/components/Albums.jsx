@@ -779,7 +779,7 @@ const Albums = () => {
                 <div className="album-preview" onClick={() => handleViewAlbum(album.id)}>
                   <AlbumThumbnail albumId={album.id} />
                   <div className="album-info">
-                    <h3 className="album-title">{album.title}</h3>
+                    <h3 className="album-title-list">{album.title}</h3>
                     <p className="album-subtitle">לחץ לצפייה בתמונות</p>
                   </div>
                 </div>

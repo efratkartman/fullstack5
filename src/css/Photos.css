@@ -1,10 +1,7 @@
-/* src/css/Photos.css */
-/* עיצוב רכיב תמונות */
+/* src/css/Photos.css - עיצוב רכיב תמונות עקבי */
 
 .photos-section {
-  border-top: 2px solid #ffe0e6;
-  margin-top: 20px;
-  padding-top: 20px;
+  margin-top: 25px;
 }
 
 /* כותרת תמונות */
@@ -12,41 +9,46 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  background: white;
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
   margin-bottom: 25px;
-  padding-bottom: 15px;
-  border-bottom: 1px solid #f0f0f0;
   flex-wrap: wrap;
   gap: 15px;
 }
 
 .photos-header h3 {
   margin: 0;
+  font-size: 24px;
   color: #333;
-  font-size: 1.5rem;
-  font-weight: bold;
+  font-weight: 600;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .add-photo-btn {
-  background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+  background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
   color: white;
   border: none;
   padding: 12px 20px;
   border-radius: 25px;
-  font-size: 0.9rem;
-  font-weight: bold;
+  font-size: 16px;
+  font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 3px 10px rgba(255, 107, 107, 0.3);
+  white-space: nowrap;
 }
 
 .add-photo-btn:hover:not(:disabled) {
-  background: linear-gradient(135deg, #e55a5a 0%, #d44e1f 100%);
   transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+  box-shadow: 0 8px 20px rgba(76, 175, 80, 0.3);
 }
 
 .add-photo-btn:disabled {
-  opacity: 0.6;
+  background: #cccccc;
   cursor: not-allowed;
   transform: none !important;
   box-shadow: none !important;
@@ -54,17 +56,19 @@
 
 /* טופס הוספת תמונה */
 .add-photo-form {
-  background: #f8f9fa;
+  background: white;
   padding: 25px;
-  border-radius: 12px;
+  border-radius: 15px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
   margin-bottom: 25px;
-  border: 2px solid #ffe0e6;
+  border-left: 5px solid #4CAF50;
 }
 
 .add-photo-form h4 {
   margin: 0 0 20px 0;
-  color: #ff6b6b;
-  font-size: 1.3rem;
+  color: #333;
+  font-size: 20px;
+  font-weight: 600;
 }
 
 .form-group {
@@ -74,64 +78,62 @@
 .form-group label {
   display: block;
   margin-bottom: 6px;
-  font-weight: bold;
-  color: #333;
-  font-size: 0.9rem;
+  font-weight: 600;
+  color: #555;
+  font-size: 14px;
 }
 
 .form-group input {
   width: 100%;
   padding: 10px 14px;
-  border: 2px solid #ddd;
+  border: 2px solid #e1e5e9;
   border-radius: 6px;
-  font-size: 0.9rem;
+  font-size: 14px;
   transition: border-color 0.3s ease;
   box-sizing: border-box;
   font-family: inherit;
 }
 
 .form-group input:focus {
+  border-color: #4CAF50;
   outline: none;
-  border-color: #ff6b6b;
-  box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.1);
+  box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
 }
 
 .form-actions {
   display: flex;
-  gap: 12px;
+  gap: 10px;
   flex-wrap: wrap;
 }
 
 .form-actions button {
   padding: 10px 20px;
   border: none;
-  border-radius: 6px;
-  font-size: 0.9rem;
-  font-weight: bold;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
 }
 
 .submit-btn {
-  background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+  background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
   color: white;
 }
 
 .submit-btn:hover:not(:disabled) {
-  background: linear-gradient(135deg, #e55a5a 0%, #d44e1f 100%);
   transform: translateY(-1px);
-  box-shadow: 0 3px 10px rgba(255, 107, 107, 0.3);
+  box-shadow: 0 5px 15px rgba(76, 175, 80, 0.3);
 }
 
 .cancel-btn {
-  background: #f5f5f5;
-  color: #666;
-  border: 2px solid #ddd !important;
+  background: #f44336 !important;
+  color: white !important;
 }
 
 .cancel-btn:hover:not(:disabled) {
-  background: #e0e0e0;
-  color: #333;
+  background: #d32f2f !important;
+  transform: translateY(-1px);
 }
 
 .form-actions button:disabled {
@@ -141,67 +143,66 @@
   box-shadow: none !important;
 }
 
-/* גלריית תמונות - 3 תמונות בשורה */
+/* גלריית תמונות */
 .photos-gallery {
-  margin-top: 20px;
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
 }
 
+/* רשת תמונות - 3 תמונות בשורה */
 .photos-grid-3x3 {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 20px;
-  margin-bottom: 30px;
+  padding: 25px;
 }
 
 /* מצב ריק */
 .empty-photos {
   text-align: center;
   padding: 60px 20px;
-  background: #f8f9fa;
-  border-radius: 12px;
-  border: 2px dashed #ddd;
-  grid-column: 1 / -1;
+  color: #666;
 }
 
 .empty-photos p {
   margin: 0 0 20px 0;
-  color: #666;
-  font-size: 1.2rem;
+  font-size: 18px;
 }
 
 .add-first-photo-btn {
-  background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
   border: none;
   padding: 12px 24px;
   border-radius: 25px;
-  font-size: 1rem;
-  font-weight: bold;
+  font-size: 16px;
+  font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
 }
 
 .add-first-photo-btn:hover {
-  background: linear-gradient(135deg, #e55a5a 0%, #d44e1f 100%);
   transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
+  box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
 }
 
 /* טעינת עוד תמונות */
 .load-more-section {
   text-align: center;
-  padding: 20px;
+  padding: 25px;
   border-top: 1px solid #e0e0e0;
 }
 
 .load-more-btn {
-  background: linear-gradient(135deg, #17a2b8 0%, #007bff 100%);
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
   border: none;
   padding: 15px 30px;
   border-radius: 25px;
-  font-size: 1rem;
-  font-weight: bold;
+  font-size: 16px;
+  font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
   display: flex;
@@ -211,9 +212,8 @@
 }
 
 .load-more-btn:hover:not(:disabled) {
-  background: linear-gradient(135deg, #138496 0%, #0056b3 100%);
   transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(23, 162, 184, 0.3);
+  box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
 }
 
 .load-more-btn:disabled {
@@ -232,27 +232,22 @@
   animation: spin 1s linear infinite;
 }
 
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
 .photos-info {
   margin: 10px 0 0 0;
   color: #666;
-  font-size: 0.9rem;
+  font-size: 14px;
 }
 
 .end-of-photos {
   text-align: center;
-  padding: 20px;
+  padding: 25px;
   color: #666;
   border-top: 1px solid #e0e0e0;
 }
 
 .end-of-photos p {
   margin: 0;
-  font-size: 1rem;
+  font-size: 16px;
   font-weight: 500;
 }
 
@@ -269,48 +264,14 @@
 .photos-section .loading-spinner {
   width: 40px;
   height: 40px;
-  border: 4px solid #f3f3f3;
-  border-top: 4px solid #ff6b6b;
+  border: 4px solid #e1e5e9;
+  border-top: 4px solid #667eea;
   border-radius: 50%;
   animation: spin 1s linear infinite;
   margin-bottom: 20px;
 }
 
-/* תגובה למסכים קטנים */
-@media (max-width: 768px) {
-  .photos-header {
-    flex-direction: column;
-    align-items: stretch;
-    text-align: center;
-  }
-  
-  .add-photo-form {
-    padding: 20px;
-  }
-  
-  .form-actions {
-    flex-direction: column;
-  }
-  
-  .photos-grid-3x3 {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 15px;
-  }
-  
-  .load-more-btn {
-    width: 100%;
-    justify-content: center;
-  }
-}
-
-@media (max-width: 480px) {
-  .photos-grid-3x3 {
-    grid-template-columns: 1fr;
-    gap: 15px;
-  }
-}
-
-/* תמונה מוגדלת - פשוטה ונקייה */
+/* תמונה מוגדלת */
 .photo-enlarged-overlay {
   position: fixed;
   top: 0;
@@ -328,19 +289,22 @@
 
 .photo-enlarged-container {
   position: relative;
-  max-width: 100%;
-  max-height: 100%;
+  max-width: calc(100vw - 80px); /* מסך רוחב מינוס padding */
+  max-height: calc(100vh - 80px); /* מסך אורך מינוס padding */
   background: white;
   padding: 8px;
-  border-radius: 4px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  border-radius: 8px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .close-enlarged-btn {
   position: absolute;
   top: -15px;
   right: -15px;
-  background: rgba(0, 0, 0, 0.7);
+  background: #f44336;
   color: white;
   border: none;
   width: 32px;
@@ -353,27 +317,70 @@
   justify-content: center;
   transition: all 0.3s ease;
   z-index: 10;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 15px rgba(244, 67, 54, 0.3);
 }
 
 .close-enlarged-btn:hover {
-  background: rgba(0, 0, 0, 0.9);
+  background: #d32f2f;
   transform: scale(1.1);
 }
 
 .enlarged-image {
   display: block;
-  max-width: 100%;
-  max-height: 100%;
+  max-width: calc(100vw - 96px); /* מסך רוחב מינוס padding ומסגרת */
+  max-height: calc(100vh - 96px); /* מסך אורך מינוס padding ומסגרת */
   width: auto;
   height: auto;
   object-fit: contain;
-  border-radius: 2px;
+  border-radius: 4px;
 }
 
+/* אנימציות */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* רספונסיביות */
 @media (max-width: 768px) {
+  .photos-header {
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .add-photo-form {
+    padding: 20px;
+  }
+  
+  .form-actions {
+    flex-direction: column;
+  }
+  
+  .photos-grid-3x3 {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    padding: 20px;
+  }
+  
+  .load-more-btn {
+    width: 100%;
+    justify-content: center;
+  }
+  
   .photo-enlarged-overlay {
     padding: 20px;
+  }
+  
+  .photo-enlarged-container {
+    max-width: calc(100vw - 40px);
+    max-height: calc(100vh - 40px);
+  }
+  
+  .enlarged-image {
+    max-width: calc(100vw - 56px);
+    max-height: calc(100vh - 56px);
   }
   
   .close-enlarged-btn {
@@ -382,5 +389,51 @@
     width: 28px;
     height: 28px;
     font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .photos-grid-3x3 {
+    grid-template-columns: 1fr;
+    gap: 15px;
+    padding: 15px;
+  }
+  
+  .photos-header {
+    padding: 15px;
+  }
+  
+  .photos-header h3 {
+    font-size: 20px;
+  }
+  
+  .add-photo-form {
+    padding: 15px;
+  }
+  
+  .form-actions button {
+    width: 100%;
+  }
+  
+  .photo-enlarged-overlay {
+    padding: 10px;
+  }
+  
+  .photo-enlarged-container {
+    max-width: calc(100vw - 20px);
+    max-height: calc(100vh - 20px);
+  }
+  
+  .enlarged-image {
+    max-width: calc(100vw - 36px);
+    max-height: calc(100vh - 36px);
+  }
+  
+  .close-enlarged-btn {
+    top: -10px;
+    right: -10px;
+    width: 24px;
+    height: 24px;
+    font-size: 12px;
   }
 }

@@ -1,10 +1,11 @@
-/* src/css/Comments.css */
-/* עיצוב רכיב תגובות */
+/* src/css/Comments.css - עיצוב רכיב תגובות עקבי */
 
 .comments-section {
-  border-top: 2px solid #e0e0e0;
-  margin-top: 20px;
-  padding-top: 20px;
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  margin-top: 25px;
+  overflow: hidden;
 }
 
 /* כותרת תגובות */
@@ -12,37 +13,36 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 25px;
-  padding-bottom: 15px;
-  border-bottom: 1px solid #f0f0f0;
+  padding: 25px 30px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
   flex-wrap: wrap;
   gap: 15px;
 }
 
 .comments-header h3 {
   margin: 0;
-  color: #333;
-  font-size: 1.5rem;
-  font-weight: bold;
+  font-size: 20px;
+  font-weight: 600;
 }
 
 .add-comment-btn {
-  background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+  background: rgba(255, 255, 255, 0.2);
   color: white;
-  border: none;
-  padding: 12px 20px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  padding: 10px 20px;
   border-radius: 25px;
-  font-size: 0.9rem;
-  font-weight: bold;
+  font-size: 14px;
+  font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 3px 10px rgba(40, 167, 69, 0.3);
+  backdrop-filter: blur(10px);
 }
 
 .add-comment-btn:hover:not(:disabled) {
-  background: linear-gradient(135deg, #218838 0%, #1aa085 100%);
+  background: rgba(255, 255, 255, 0.3);
   transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(40, 167, 69, 0.4);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
 .add-comment-btn:disabled {
@@ -56,15 +56,15 @@
 .add-comment-form {
   background: #f8f9fa;
   padding: 25px;
-  border-radius: 12px;
-  margin-bottom: 25px;
-  border: 2px solid #e3f2fd;
+  border-bottom: 1px solid #e0e0e0;
+  border-left: 5px solid #4CAF50;
 }
 
 .add-comment-form h4 {
   margin: 0 0 20px 0;
-  color: #1976d2;
-  font-size: 1.3rem;
+  color: #333;
+  font-size: 18px;
+  font-weight: 600;
 }
 
 .form-row {
@@ -81,18 +81,18 @@
 .form-group label {
   display: block;
   margin-bottom: 6px;
-  font-weight: bold;
-  color: #333;
-  font-size: 0.9rem;
+  font-weight: 600;
+  color: #555;
+  font-size: 14px;
 }
 
 .form-group input,
 .form-group textarea {
   width: 100%;
   padding: 10px 14px;
-  border: 2px solid #ddd;
+  border: 2px solid #e1e5e9;
   border-radius: 6px;
-  font-size: 0.9rem;
+  font-size: 14px;
   transition: border-color 0.3s ease;
   box-sizing: border-box;
   font-family: inherit;
@@ -100,9 +100,9 @@
 
 .form-group input:focus,
 .form-group textarea:focus {
+  border-color: #4CAF50;
   outline: none;
-  border-color: #28a745;
-  box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.1);
+  box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
 }
 
 .form-group textarea {
@@ -113,40 +113,38 @@
 
 .form-actions {
   display: flex;
-  gap: 12px;
+  gap: 10px;
   flex-wrap: wrap;
 }
 
 .form-actions button {
   padding: 10px 20px;
   border: none;
-  border-radius: 6px;
-  font-size: 0.9rem;
-  font-weight: bold;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
 }
 
 .submit-btn {
-  background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+  background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
   color: white;
 }
 
 .submit-btn:hover:not(:disabled) {
-  background: linear-gradient(135deg, #218838 0%, #1aa085 100%);
   transform: translateY(-1px);
-  box-shadow: 0 3px 10px rgba(40, 167, 69, 0.3);
+  box-shadow: 0 5px 15px rgba(76, 175, 80, 0.3);
 }
 
 .cancel-btn {
-  background: #f5f5f5;
-  color: #666;
-  border: 2px solid #ddd !important;
+  background: #f44336 !important;
+  color: white !important;
 }
 
 .cancel-btn:hover:not(:disabled) {
-  background: #e0e0e0;
-  color: #333;
+  background: #d32f2f !important;
+  transform: translateY(-1px);
 }
 
 .form-actions button:disabled {
@@ -160,40 +158,36 @@
 .comments-list {
   max-height: 500px;
   overflow-y: auto;
-  padding-right: 5px;
+  padding: 20px 25px;
 }
 
 /* מצב ריק */
 .empty-comments {
   text-align: center;
   padding: 40px 20px;
-  background: #f8f9fa;
-  border-radius: 12px;
-  border: 2px dashed #ddd;
+  color: #666;
 }
 
 .empty-comments p {
   margin: 0 0 20px 0;
-  color: #666;
-  font-size: 1.1rem;
+  font-size: 16px;
 }
 
 .add-first-comment-btn {
-  background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+  background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
   color: white;
   border: none;
   padding: 12px 24px;
   border-radius: 25px;
-  font-size: 1rem;
-  font-weight: bold;
+  font-size: 16px;
+  font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
 }
 
 .add-first-comment-btn:hover {
-  background: linear-gradient(135deg, #218838 0%, #1aa085 100%);
   transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(40, 167, 69, 0.3);
+  box-shadow: 0 8px 20px rgba(76, 175, 80, 0.3);
 }
 
 /* מסך טעינה */
@@ -209,8 +203,8 @@
 .comments-section .loading-spinner {
   width: 30px;
   height: 30px;
-  border: 3px solid #f3f3f3;
-  border-top: 3px solid #28a745;
+  border: 3px solid #e1e5e9;
+  border-top: 3px solid #667eea;
   border-radius: 50%;
   animation: spin 1s linear infinite;
   margin-bottom: 15px;
@@ -221,7 +215,7 @@
   100% { transform: rotate(360deg); }
 }
 
-/* תגובה למסכים קטנים */
+/* רספונסיביות */
 @media (max-width: 768px) {
   .form-row {
     grid-template-columns: 1fr;
@@ -232,6 +226,7 @@
     flex-direction: column;
     align-items: stretch;
     text-align: center;
+    padding: 20px;
   }
   
   .add-comment-form {
@@ -244,5 +239,28 @@
   
   .comments-list {
     max-height: 400px;
+    padding: 15px 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .comments-header {
+    padding: 15px;
+  }
+  
+  .comments-header h3 {
+    font-size: 18px;
+  }
+  
+  .add-comment-form {
+    padding: 15px;
+  }
+  
+  .form-actions button {
+    width: 100%;
+  }
+  
+  .comments-list {
+    padding: 10px 15px;
   }
 }
