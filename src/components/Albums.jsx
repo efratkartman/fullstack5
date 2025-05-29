@@ -5,7 +5,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import AuthContext from '../contexts/AuthContext';
-import AlbumThumbnail from './AlbumThumbnail';
+// import AlbumThumbnail from './AlbumThumbnail';
 import '../css/Albums.css';
 
 /**
@@ -117,14 +117,14 @@ const Albums = () => {
       // מחיקת האלבום
       await axios.delete(`http://localhost:3000/albums/${albumId}`);
       
-      // מחיקת כל התמונות השייכות לאלבום
-      const photosResponse = await axios.get(`http://localhost:3000/photos?albumId=${albumId}`);
-      const albumPhotos = photosResponse.data;
+      // // מחיקת כל התמונות השייכות לאלבום
+      // const photosResponse = await axios.get(`http://localhost:3000/photos?albumId=${albumId}`);
+      // const albumPhotos = photosResponse.data;
       
-      // מחיקת כל תמונה
-      for (const photo of albumPhotos) {
-        await axios.delete(`http://localhost:3000/photos/${photo.id}`);
-      }
+      // // מחיקת כל תמונה
+      // for (const photo of albumPhotos) {
+      //   await axios.delete(`http://localhost:3000/photos/${photo.id}`);
+      // }
 
       const updatedAlbums = albums.filter(album => album.id !== albumId);
       setAlbums(updatedAlbums);
@@ -132,6 +132,7 @@ const Albums = () => {
 
       // ניקוי cache של תמונות האלבום
       localStorage.removeItem(`photos_album_${albumId}`);
+      localStorage.removeItem(`photos_meta_${albumId}`);
 
       console.log('Album and photos deleted successfully');
 
@@ -351,7 +352,7 @@ const Albums = () => {
             filteredAlbums.map(album => (
               <div key={album.id} className="album-card">
                 <div className="album-preview" onClick={() => handleViewAlbum(album.id)}>
-                  <AlbumThumbnail albumId={album.id} />
+                  {/*<AlbumThumbnail albumId={album.id} />*/}
                   <div className="album-info">
                     <h3 className="album-title-list">{album.title}</h3>
                     <p className="album-subtitle">לחץ לצפייה בתמונות</p>

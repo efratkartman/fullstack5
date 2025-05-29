@@ -47,6 +47,21 @@ export const AuthProvider = ({ children }) => {
   const logout = () => {
     setUser(null);
     localStorage.removeItem('user');
+
+    // מחיקת מידע אישי/רגיש
+    Object.keys(localStorage).forEach(key => {
+      if (key.startsWith('todos_user_') ||
+        key.startsWith('posts_user_') ||
+        key.startsWith('albums_user_') ||
+        key.startsWith('photos_album_') ||
+        key.startsWith('photos_meta_') ||
+        key.startsWith('comments_post_')) {
+        localStorage.removeItem(key);
+      }
+    });
+
+    // השאר cache פחות רגיש (אם יש)
+    // כמו העדפות UI, שפה, וכו'
   };
 
   /**

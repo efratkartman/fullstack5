@@ -17,12 +17,12 @@ const Album = () => {
   const { user, loading: authLoading } = useContext(AuthContext);
   const { userId, albumId } = useParams();
   const navigate = useNavigate();
-  
+
   // State ראשי
   const [album, setAlbum] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  
+
   // State לעריכה
   const [editing, setEditing] = useState(false);
   const [editTitle, setEditTitle] = useState('');
@@ -41,7 +41,7 @@ const Album = () => {
       if (cachedAlbums) {
         const parsedAlbums = JSON.parse(cachedAlbums);
         const foundAlbum = parsedAlbums.find(a => a.id.toString() === albumId);
-        
+
         if (foundAlbum) {
           setAlbum(foundAlbum);
           setEditTitle(foundAlbum.title);
@@ -54,13 +54,13 @@ const Album = () => {
       // טעינה מהשרת אם לא נמצא ב-cache
       const response = await axios.get(`http://localhost:3000/albums/${albumId}`);
       const loadedAlbum = response.data;
-      
+
       // בדיקה שהאלבום שייך למשתמש
       if (loadedAlbum.userId.toString() !== userId) {
         setError('אין לך הרשאה לצפות באלבום זה');
         return;
       }
-      
+
       setAlbum(loadedAlbum);
       setEditTitle(loadedAlbum.title);
       console.log('Album loaded from server');
@@ -101,7 +101,7 @@ const Album = () => {
       const cachedAlbums = localStorage.getItem(ALBUMS_STORAGE_KEY);
       if (cachedAlbums) {
         const parsedAlbums = JSON.parse(cachedAlbums);
-        const updatedAlbums = parsedAlbums.map(a => 
+        const updatedAlbums = parsedAlbums.map(a =>
           a.id.toString() === albumId ? updatedAlbum : a
         );
         localStorage.setItem(ALBUMS_STORAGE_KEY, JSON.stringify(updatedAlbums));
@@ -124,13 +124,13 @@ const Album = () => {
     if (!window.confirm('האם אתה בטוח שברצונך למחוק את האלבום? כל התמונות באלבום יימחקו גם כן! פעולה זו לא ניתנת לביטול.')) return;
 
     try {
-      // מחיקת כל התמונות באלבום תחילה
-      const photosResponse = await axios.get(`http://localhost:3000/photos?albumId=${albumId}`);
-      const albumPhotos = photosResponse.data;
-      
-      for (const photo of albumPhotos) {
-        await axios.delete(`http://localhost:3000/photos/${photo.id}`);
-      }
+      // // מחיקת כל התמונות באלבום תחילה
+      // const photosResponse = await axios.get(`http://localhost:3000/photos?albumId=${albumId}`);
+      // const albumPhotos = photosResponse.data;
+
+      // for (const photo of albumPhotos) {
+      //   await axios.delete(`http://localhost:3000/photos/${photo.id}`);
+      // }
 
       // מחיקת האלבום
       await axios.delete(`http://localhost:3000/albums/${albumId}`);
@@ -145,6 +145,7 @@ const Album = () => {
 
       // ניקוי cache של תמונות האלבום
       localStorage.removeItem(`photos_album_${albumId}`);
+      localStorage.removeItem(`photos_meta_${albumId}`);
 
       // חזרה לרשימת האלבומים
       navigate(`/users/${userId}/albums`);
@@ -224,16 +225,16 @@ const Album = () => {
             <span className="breadcrumb-separator">›</span>
             <span className="breadcrumb-current">אלבום #{albumId}</span>
           </div>
-          
+
           <div className="album-actions-header">
-            <button 
+            <button
               onClick={() => setEditing(!editing)}
               className="edit-btn"
               disabled={saving}
             >
               {editing ? '❌ ביטול עריכה' : '✏️ ערוך אלבום'}
             </button>
-            <button 
+            <button
               onClick={handleDeleteAlbum}
               className="delete-btn"
               disabled={saving}
@@ -271,15 +272,15 @@ const Album = () => {
                   />
                 </div>
                 <div className="form-actions">
-                  <button 
-                    type="submit" 
+                  <button
+                    type="submit"
                     disabled={saving || !editTitle.trim()}
                     className="save-btn"
                   >
                     {saving ? 'שומר...' : '💾 שמור שינויים'}
                   </button>
-                  <button 
-                    type="button" 
+                  <button
+                    type="button"
                     onClick={() => {
                       setEditing(false);
                       setEditTitle(album.title);
@@ -302,7 +303,7 @@ const Album = () => {
                     {new Date().toLocaleDateString('he-IL')}
                   </span>
                 </div>
-                
+
                 <h1 className="album-title">{album.title}</h1>
                 <p className="album-description">
                   אלבום התמונות שלך - צפה בתמונות, הוסף תמונות חדשות ונהל את האוסף שלך
@@ -314,8 +315,8 @@ const Album = () => {
 
         {/* רכיב תמונות */}
         {!editing && (
-          <Photos 
-            albumId={albumId} 
+          <Photos
+            albumId={albumId}
             userId={userId}
             albumTitle={album.title}
             onError={setError}
