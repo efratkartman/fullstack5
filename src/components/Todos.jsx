@@ -306,7 +306,7 @@ const Todos = () => {
                     onChange={(e) => setNewTodo({...newTodo, completed: e.target.checked})}
                     disabled={saving}
                   />
-                  <span>משימה מושלמת</span>
+                  <span>משימה הושלמה</span>
                 </label>
               </div>
               <div className="form-actions">
@@ -384,7 +384,7 @@ const Todos = () => {
           </div>
           <div className="stat-item">
             <span className="stat-number">{todos.filter(t => !t.completed).length}</span>
-            <span className="stat-label">בהמתנה</span>
+            <span className="stat-label">לא הושלמו</span>
           </div>
           <div className="stat-item">
             <span className="stat-number">{processedTodos.length}</span>

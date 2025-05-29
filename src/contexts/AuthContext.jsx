@@ -45,6 +45,8 @@ export const AuthProvider = ({ children }) => {
    * פונקציה להתנתקות משתמש
    */
   const logout = () => {
+    if (!window.confirm('האם אתה בטוח שברצונך להתנתק?')) return;
+
     setUser(null);
     localStorage.removeItem('user');
 

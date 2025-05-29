@@ -45,7 +45,7 @@ const NavBar = () => {
             to={`/users/${user.id}/home`}
             className="logo-link"
           >
-            📱 המערכת שלי
+            🏠 עמוד בית
           </Link>
         </div>
 

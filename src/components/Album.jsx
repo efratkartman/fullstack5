@@ -305,9 +305,6 @@ const Album = () => {
                 </div>
 
                 <h1 className="album-title">{album.title}</h1>
-                <p className="album-description">
-                  אלבום התמונות שלך - צפה בתמונות, הוסף תמונות חדשות ונהל את האוסף שלך
-                </p>
               </div>
             </div>
           )}

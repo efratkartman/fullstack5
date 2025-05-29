@@ -172,9 +172,6 @@ const Home = () => {
           <h1 className="welcome-title" dir="rtl">
             👋 ברוך הבא, {user.name || user.username}
           </h1>
-          <p className="welcome-subtitle">
-            ברוך הבא למערכת ניהול המשתמשים האישית שלך
-          </p>
         </div>
 
         {/* תפריט ניווט אינטראקטיבי */}

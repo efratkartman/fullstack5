@@ -370,7 +370,7 @@ const Photos = ({ albumId, userId, albumTitle, onError }) => {
     <div className="photos-section">
       {/* כותרת תמונות */}
       <div className="photos-header">
-        <h3>🖼️ תמונות האלבום {cachedPhotos.length > 0 ? `(${cachedPhotos.length})` : ""}</h3>
+        <h3>🖼️ תמונות האלבום</h3>
         <button 
           onClick={() => setShowAddForm(!showAddForm)}
           className="add-photo-btn"
@@ -484,19 +484,13 @@ const Photos = ({ albumId, userId, albumTitle, onError }) => {
                     '📸 הצג עוד תמונות'
                   )}
                 </button>
-                <p className="photos-info">
-                  מוצגות {photos.length} תמונות
-                  {cachedPhotos.length > photos.length && (
-                    <small> (עוד {cachedPhotos.length - photos.length} שמורות ב-cache)</small>
-                  )}
-                </p>
               </div>
             )}
 
             {/* הודעה שנגמרו התמונות */}
             {!hasMore && photos.length > 0 && (
               <div className="end-of-photos">
-                <p>🎉 זהו זה! הצגת את כל התמונות באלבום</p>
+                <p>סוף האלבום</p>
               </div>
             )}
           </>
