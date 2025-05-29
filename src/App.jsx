@@ -1,5 +1,4 @@
-// src/App.jsx
-// הקובץ הראשי של האפליקציה - מעודכן עם רכיב Posts
+
 
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
@@ -22,10 +21,6 @@ import PrivateRoute from './components/PrivateRoute';
 // ייבוא עיצוב כללי
 import './index.css';
 
-/**
- * App - הרכיב הראשי של האפליקציה
- * מכיל את כל הניתוב, האימות והרכיבים הראשיים
- */
 function App() {
   return (
     <AuthProvider>

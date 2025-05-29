@@ -1,16 +1,11 @@
-// src/components/Comments.jsx
-// רכיב ניהול תגובות לפוסט
+
 
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Comment from './Comment';
 import '../css/Comments.css';
 
-/**
- * Comments - רכיב ניהול תגובות
- * מציג רשימת תגובות לפוסט עם אפשרויות הוספה ועריכה
- * מאפשר מחיקה ועריכה רק למשתמש שיצר את התגובה
- */
+
 const Comments = ({ postId, userId, onError }) => {
   // State ראשי
   const [comments, setComments] = useState([]);
@@ -21,7 +16,7 @@ const Comments = ({ postId, userId, onError }) => {
   const [newComment, setNewComment] = useState({ name: '', email: '', body: '' });
   const [saving, setSaving] = useState(false);
 
-  // מפתח LocalStorage
+ 
   const COMMENTS_STORAGE_KEY = `comments_post_${postId}`;
 
   /**

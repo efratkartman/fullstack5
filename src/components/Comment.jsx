@@ -1,13 +1,10 @@
-// src/components/Comment.jsx
+
 // רכיב לתגובה בודדת
 
 import React, { useState } from 'react';
 import '../css/Comment.css';
 
-/**
- * Comment - רכיב תגובה בודדת
- * מציג תגובה עם אפשרות עריכה ומחיקה רק למשתמש היוצר
- */
+
 const Comment = ({ comment, currentUserId, onUpdate, onDelete }) => {
   // State לעריכה
   const [editing, setEditing] = useState(false);
@@ -17,12 +14,10 @@ const Comment = ({ comment, currentUserId, onUpdate, onDelete }) => {
     body: comment.body
   });
 
-  // בדיקה אם התגובה שייכת למשתמש הנוכחי
+
   const isOwner = comment.userId === currentUserId;
 
-  /**
-   * שמירת עריכה
-   */
+  
   const handleSaveEdit = () => {
     if (!editData.name.trim() || !editData.email.trim() || !editData.body.trim()) {
       return;

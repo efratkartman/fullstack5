@@ -1,16 +1,10 @@
-// src/components/NavBar.jsx
-// רכיב תפריט הניווט העליון
+
 
 import React, { useContext } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import AuthContext from '../contexts/AuthContext';
 import '../css/NavBar.css';
 
-/**
- * NavBar - רכיב תפריט הניווט
- * מציג קישורים לדפים שונים רק כשהמשתמש מחובר
- * כולל כפתור התנתקות
- */
 const NavBar = () => {
   const { user, logout } = useContext(AuthContext);
   const navigate = useNavigate();

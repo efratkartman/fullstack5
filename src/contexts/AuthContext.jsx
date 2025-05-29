@@ -6,10 +6,7 @@ import React, { createContext, useState, useEffect } from 'react';
 // יצירת Context לאימות
 const AuthContext = createContext();
 
-/**
- * AuthProvider - רכיב שמספק את מצב האימות לכל האפליקציה
- * @param {Object} children - רכיבי הילדים שיקבלו גישה למצב האימות
- */
+
 export const AuthProvider = ({ children }) => {
   // מצב המשתמש הנוכחי - מתחיל עם מה שנשמר ב-LocalStorage
   const [user, setUser] = useState(null);
@@ -32,10 +29,7 @@ export const AuthProvider = ({ children }) => {
     }
   }, []);
 
-  /**
-   * פונקציה להתחברות משתמש
-   * @param {Object} userData - נתוני המשתמש
-   */
+ 
   const login = (userData) => {
     setUser(userData);
     localStorage.setItem('user', JSON.stringify(userData));
@@ -50,7 +44,7 @@ export const AuthProvider = ({ children }) => {
     setUser(null);
     localStorage.removeItem('user');
 
-    // מחיקת מידע אישי/רגיש
+    // מחיקת מידע איש י
     Object.keys(localStorage).forEach(key => {
       if (key.startsWith('todos_user_') ||
         key.startsWith('posts_user_') ||
@@ -62,14 +56,11 @@ export const AuthProvider = ({ children }) => {
       }
     });
 
-    // השאר cache פחות רגיש (אם יש)
-    // כמו העדפות UI, שפה, וכו'
+
   };
 
-  /**
-   * פונקציה לבדיקה אם המשתמש מחובר
-   * @returns {boolean} האם המשתמש מחובר
-   */
+
+
   const isAuthenticated = () => {
     return user !== null;
   };

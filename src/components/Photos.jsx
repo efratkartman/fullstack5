@@ -1,18 +1,12 @@
-// src/components/Photos.jsx
-// רכיב ניהול תמונות עם Smart Caching + Lazy Loading - גרסה מתוקנת
 
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import Photo from './Photo';
 import '../css/Photos.css';
 
-/**
- * Photos - רכיב ניהול תמונות עם caching חכם
- * מביא תמונות בשלבים מהשרת ושומר ב-cache
- * בפעמים הבאות מנסה קודם מה-cache
- */
+
 const Photos = ({ albumId, userId, albumTitle, onError }) => {
-  // State ראשי
+  
   const [photos, setPhotos] = useState([]); // תמונות מוצגות כרגע
   const [cachedPhotos, setCachedPhotos] = useState([]); // תמונות שמורות ב-cache
   const [loading, setLoading] = useState(true);
@@ -20,7 +14,7 @@ const Photos = ({ albumId, userId, albumTitle, onError }) => {
   
   // State להצגה בשלבים
   const [currentPage, setCurrentPage] = useState(1);
-  const [photosPerPage] = useState(9); // 3x3 = 9 תמונות בכל פעם
+  const [photosPerPage] = useState(9); 
   const [hasMore, setHasMore] = useState(true);
   const [lastServerCallReachedEnd, setLastServerCallReachedEnd] = useState(false);
   
@@ -94,9 +88,7 @@ const Photos = ({ albumId, userId, albumTitle, onError }) => {
     }
   };
 
-  /**
-   * טעינת תמונות מהשרת עם pagination + Duplicate Detection
-   */
+ 
   const loadPhotosFromServer = async (page, isLoadMore = false) => {
     try {
       if (!isLoadMore) setLoading(true);
@@ -197,8 +189,7 @@ const Photos = ({ albumId, userId, albumTitle, onError }) => {
         setPhotos(prev => [...prev, ...serverPhotos]);
         setCurrentPage(prev => prev + 1);
       } else {
-        // אם לא קיבלנו תמונות חדשות, אולי בגלל duplicates
-        // נסה להציג מה שיש ב-cache עכשיו
+
         const availableFromCache = cachedPhotos.slice(photos.length, photosNeeded);
         if (availableFromCache.length > 0) {
           setPhotos(prev => [...prev, ...availableFromCache]);

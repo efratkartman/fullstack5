@@ -1,5 +1,4 @@
-// src/components/Todos.jsx
-// רכיב ניהול משימות - חלק ד
+
 
 import React, { useState, useEffect, useContext } from 'react';
 import { useParams } from 'react-router-dom';
@@ -7,20 +6,11 @@ import axios from 'axios';
 import AuthContext from '../contexts/AuthContext';
 import '../css/Todos.css';
 
-/**
- * Todos - רכיב ניהול משימות
- * מטפל בכל הפעולות על משימות לפי הדרישות:
- * - הצגת רשימת todos של המשתמש
- * - מיון לפי קריטריונים שונים
- * - חיפוש
- * - הוספה, מחיקה, עדכון תוכן ומצב
- * - שמירה חכמה ב-LocalStorage
- */
+
 const Todos = () => {
   const { user, loading: authLoading } = useContext(AuthContext);
   const { userId } = useParams();
-  
-  // State ראשי
+
   const [todos, setTodos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -36,7 +26,6 @@ const Todos = () => {
   const [editingTodo, setEditingTodo] = useState(null);
   const [saving, setSaving] = useState(false);
 
-  // מפתח LocalStorage למשימות
   const TODOS_STORAGE_KEY = `todos_user_${userId}`;
 
   /**
@@ -127,7 +116,7 @@ const Todos = () => {
       // מחיקה מהשרת
       await axios.delete(`http://localhost:3000/todos/${todoId}`);
 
-      // עדכון מקומי מיידי
+      // עדכון מקומי
       const updatedTodos = todos.filter(todo => todo.id !== todoId);
       setTodos(updatedTodos);
       updateLocalStorage(updatedTodos);
@@ -152,7 +141,7 @@ const Todos = () => {
       const response = await axios.put(`http://localhost:3000/todos/${todoId}`, updatedTodoData);
       const updatedTodo = response.data;
 
-      // עדכון מקומי מיידי
+      // עדכון מקומי
       const updatedTodos = todos.map(t => 
         t.id === todoId ? updatedTodo : t
       );
@@ -229,7 +218,6 @@ const Todos = () => {
     }
   }, [user, userId, authLoading]);
 
-  // משימות מעובדות (מיון + סינון)
   const processedTodos = getSortedTodos(getFilteredTodos(todos));
 
   // מסך טעינה

@@ -1,5 +1,4 @@
-// src/components/Photo.jsx
-// רכיב לתמונה בודדת - גרסה פשוטה ללא slider
+
 
 import React, { useState } from 'react';
 import '../css/Photo.css';
@@ -7,8 +6,9 @@ import '../css/Photo.css';
 /**
  * Photo - רכיב תמונה בודדת
  * מציג תמונה עם אפשרויות עריכת כותרת ומחיקה
- * ללא slider - הכל באותו עמוד
+ *  הכל באותו עמוד
  */
+
 const Photo = ({ photo, onUpdate, onDelete, onEnlarge }) => {
   // State לעריכה
   const [editing, setEditing] = useState(false);
@@ -16,9 +16,6 @@ const Photo = ({ photo, onUpdate, onDelete, onEnlarge }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
   const [imageError, setImageError] = useState(false);
 
-  /**
-   * שמירת עריכת כותרת
-   */
   const handleSaveEdit = () => {
     if (!editTitle.trim()) {
       return;

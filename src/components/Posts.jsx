@@ -1,4 +1,4 @@
-// src/components/Posts.jsx
+
 // רכיב ניהול פוסטים - גרסה מעודכנת עם ניווט לעמוד נפרד
 
 import React, { useState, useEffect, useContext } from 'react';
@@ -7,17 +7,13 @@ import axios from 'axios';
 import AuthContext from '../contexts/AuthContext';
 import '../css/Posts.css';
 
-/**
- * Posts - רכיב רשימת פוסטים
- * מציג רשימת פוסטים במצב סקירה עם אפשרויות חיפוש ועריכה
- * כאשר בוחרים פוסט, מנווט לעמוד נפרד
- */
+
 const Posts = () => {
   const { user, loading: authLoading } = useContext(AuthContext);
   const { userId } = useParams();
   const navigate = useNavigate();
   
-  // State ראשי
+  
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -32,7 +28,7 @@ const Posts = () => {
   const [newPost, setNewPost] = useState({ title: '', body: '' });
   const [saving, setSaving] = useState(false);
 
-  // מפתח LocalStorage
+ 
   const POSTS_STORAGE_KEY = `posts_user_${userId}`;
 
   /**

@@ -1,5 +1,4 @@
-// src/components/Albums.jsx
-// רכיב ניהול אלבומים - חלק ו
+
 
 import React, { useState, useEffect, useContext } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
@@ -8,11 +7,7 @@ import AuthContext from '../contexts/AuthContext';
 // import AlbumThumbnail from './AlbumThumbnail';
 import '../css/Albums.css';
 
-/**
- * Albums - רכיב רשימת אלבומים
- * מציג רשימת אלבומים במצב סקירה עם אפשרויות חיפוש ועריכה
- * כאשר בוחרים אלבום, מנווט לעמוד נפרד
- */
+
 const Albums = () => {
   const { user, loading: authLoading } = useContext(AuthContext);
   const { userId } = useParams();
@@ -67,9 +62,7 @@ const Albums = () => {
     }
   };
 
-  /**
-   * עדכון LocalStorage
-   */
+ 
   const updateAlbumsStorage = (updatedAlbums) => {
     localStorage.setItem(ALBUMS_STORAGE_KEY, JSON.stringify(updatedAlbums));
   };
@@ -116,15 +109,6 @@ const Albums = () => {
     try {
       // מחיקת האלבום
       await axios.delete(`http://localhost:3000/albums/${albumId}`);
-      
-      // // מחיקת כל התמונות השייכות לאלבום
-      // const photosResponse = await axios.get(`http://localhost:3000/photos?albumId=${albumId}`);
-      // const albumPhotos = photosResponse.data;
-      
-      // // מחיקת כל תמונה
-      // for (const photo of albumPhotos) {
-      //   await axios.delete(`http://localhost:3000/photos/${photo.id}`);
-      // }
 
       const updatedAlbums = albums.filter(album => album.id !== albumId);
       setAlbums(updatedAlbums);

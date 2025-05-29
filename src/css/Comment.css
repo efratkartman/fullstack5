@@ -1,4 +1,4 @@
-/* src/css/Comment.css */
+
 /* עיצוב תגובה בודדת */
 
 .comment-item {
@@ -233,7 +233,7 @@
   box-shadow: none !important;
 }
 
-/* תגובה למסכים קטנים */
+/* למסכים קטנים */
 @media (max-width: 768px) {
   .comment-item {
     padding: 15px;

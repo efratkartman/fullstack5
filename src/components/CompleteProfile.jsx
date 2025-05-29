@@ -7,11 +7,7 @@ import axios from 'axios';
 import AuthContext from '../contexts/AuthContext';
 import '../css/CompleteProfile.css';
 
-/**
- * CompleteProfile - רכיב להשלמת פרטי המשתמש
- * מקבל username ו-password מדף ההרשמה
- * מאפשר למלא פרטים נוספים ושומר את המשתמש בשרת
- */
+
 const CompleteProfile = () => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -42,7 +38,7 @@ const CompleteProfile = () => {
       }
     },
     phone: '',
-    website: password, // הסיסמה תישמר כ-website לפי הדרישות
+    website: password, 
     company: {
       name: '',
       catchPhrase: '',
@@ -53,21 +49,18 @@ const CompleteProfile = () => {
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({});
 
-  /**
-   * מטפל בשינויים בשדות הטופס
-   * תומך בשדות מקוננים (כמו address.street)
-   */
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     
     if (name.includes('.')) {
-      // טיפול בשדות מקוננים
+    
       const keys = name.split('.');
       setProfileData(prev => {
         const newData = { ...prev };
         let current = newData;
         
-        // ניווט לאובייקט המקונן
+      
         for (let i = 0; i < keys.length - 1; i++) {
           if (!current[keys[i]]) {
             current[keys[i]] = {};
@@ -75,19 +68,19 @@ const CompleteProfile = () => {
           current = current[keys[i]];
         }
         
-        // עדכון הערך
+
         current[keys[keys.length - 1]] = value;
         return newData;
       });
     } else {
-      // שדות רגילים
+      
       setProfileData(prev => ({
         ...prev,
         [name]: value
       }));
     }
 
-    // ניקוי שגיאות
+    
     if (errors[name]) {
       setErrors(prev => ({
         ...prev,
@@ -116,9 +109,7 @@ const CompleteProfile = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  /**
-   * מטפל בשליחת הטופס
-   */
+ 
   const handleSubmit = async (e) => {
     e.preventDefault();
     
@@ -129,10 +120,10 @@ const CompleteProfile = () => {
     setLoading(true);
 
     try {
-      // הכנת נתוני המשתמש המלאים
+   
       const completeUserData = {
         username,
-        website: password, // שמירת הסיסמה כ-website
+        website: password, 
         ...profileData
       };
 

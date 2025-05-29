@@ -1,5 +1,5 @@
-// src/components/Info.jsx
-// רכיב להצגת מידע אישי של המשתמש
+
+
 
 import React, { useContext } from 'react';
 import { useParams } from 'react-router-dom';

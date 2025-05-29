@@ -5,11 +5,6 @@ import React, { useContext } from 'react';
 import { Navigate } from 'react-router-dom';
 import AuthContext from '../contexts/AuthContext';
 
-/**
- * PrivateRoute - רכיב שמגן על דפים פרטיים
- * אם המשתמש לא מחובר, מפנה אותו לדף התחברות
- * @param {Object} children - הרכיבים שצריכים הגנה
- */
 const PrivateRoute = ({ children }) => {
   const { user, loading } = useContext(AuthContext);
 

@@ -1,4 +1,4 @@
-// src/components/Post.jsx
+
 // רכיב להצגת פוסט יחיד עם תגובות
 
 import React, { useState, useEffect, useContext } from 'react';
@@ -8,11 +8,6 @@ import AuthContext from '../contexts/AuthContext';
 import Comments from './Comments';
 import '../css/Post.css';
 
-/**
- * Post - רכיב להצגת פוסט יחיד
- * מציג פוסט עם תוכן מלא, אפשרות עריכה ומחיקה
- * כולל רכיב תגובות מובנה
- */
 const Post = () => {
   const { user, loading: authLoading } = useContext(AuthContext);
   const { userId, postId } = useParams();

@@ -1,18 +1,13 @@
-// src/components/Register.jsx
-// רכיב דף ההרשמה
+
 
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 import '../css/Register.css';
 
-/**
- * Register - רכיב דף ההרשמה
- * כולל טופס עם שדות username, password ו-password verification
- * בודק שהמשתמש לא קיים ומעביר להשלמת פרופיל
- */
+
 const Register = () => {
-  // State לניהול נתוני הטופס
+ 
   const [formData, setFormData] = useState({
     username: '',
     password: '',

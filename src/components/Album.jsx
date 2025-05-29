@@ -1,4 +1,3 @@
-// src/components/Album.jsx
 // רכיב להצגת אלבום יחיד עם תמונות
 
 import React, { useState, useEffect, useContext } from 'react';
@@ -8,11 +7,8 @@ import AuthContext from '../contexts/AuthContext';
 import Photos from './Photos';
 import '../css/Album.css';
 
-/**
- * Album - רכיב להצגת אלבום יחיד
- * מציג אלבום עם רשימת התמונות שלו
- * כולל אפשרויות ניהול האלבום והתמונות
- */
+
+
 const Album = () => {
   const { user, loading: authLoading } = useContext(AuthContext);
   const { userId, albumId } = useParams();
@@ -28,12 +24,12 @@ const Album = () => {
   const [editTitle, setEditTitle] = useState('');
   const [saving, setSaving] = useState(false);
 
-  // מפתחות LocalStorage
+
   const ALBUMS_STORAGE_KEY = `albums_user_${userId}`;
 
-  /**
-   * טעינת אלבום ספציפי
-   */
+
+    //טעינת אלבום ספציפי
+ 
   const loadAlbum = async () => {
     try {
       // ניסיון טעינה מהcache תחילה
@@ -77,9 +73,9 @@ const Album = () => {
     }
   };
 
-  /**
-   * עדכון אלבום
-   */
+  
+    //עדכון אלבום
+
   const handleUpdateAlbum = async (e) => {
     e.preventDefault();
     if (!editTitle.trim()) return;
@@ -117,21 +113,14 @@ const Album = () => {
     }
   };
 
-  /**
-   * מחיקת אלבום
-   */
+
+    //מחיקת אלבום
+   
   const handleDeleteAlbum = async () => {
     if (!window.confirm('האם אתה בטוח שברצונך למחוק את האלבום? כל התמונות באלבום יימחקו גם כן! פעולה זו לא ניתנת לביטול.')) return;
 
     try {
-      // // מחיקת כל התמונות באלבום תחילה
-      // const photosResponse = await axios.get(`http://localhost:3000/photos?albumId=${albumId}`);
-      // const albumPhotos = photosResponse.data;
-
-      // for (const photo of albumPhotos) {
-      //   await axios.delete(`http://localhost:3000/photos/${photo.id}`);
-      // }
-
+ 
       // מחיקת האלבום
       await axios.delete(`http://localhost:3000/albums/${albumId}`);
 
@@ -156,10 +145,6 @@ const Album = () => {
       setError('שגיאה במחיקת האלבום');
     }
   };
-
-  /**
-   * חזרה לרשימת אלבומים
-   */
   const handleBackToAlbums = () => {
     navigate(`/users/${userId}/albums`);
   };
